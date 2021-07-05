@@ -7,7 +7,7 @@
     "php": ">=7.1",
     "ext-dom": "*",
     "ext-libxml": "*",
-    "guzzlehttp/guzzle": "^7.2",
+    "guzzlehttp/guzzle": "^6.3",
     "symfony/cache": "^5.1",
     "symfony/translation": "^5.1",
     "symfony/yaml": "^5",
