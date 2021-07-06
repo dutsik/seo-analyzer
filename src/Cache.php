@@ -2,9 +2,10 @@
 
 namespace SeoAnalyzer;
 
+use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
-use Symfony\Component\Cache\Simple\AbstractCache;
-use Symfony\Component\Cache\Simple\FilesystemCache;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 
 class Cache
 {
@@ -16,9 +17,13 @@ class Cache
     public function __construct(string $adapterClass = null, $ttl = 300)
     {
         if (empty($adapterClass)) {
-            $adapterClass = FilesystemCache::class;
+            // the PSR-6 cache object that you want to use
+            $psr6Cache = new FilesystemAdapter('seoanalyzer', $ttl);
+            // a PSR-16 cache that uses your cache internally!
+            $this->adapter = new Psr16Cache($psr6Cache);
+        } else {
+            $this->adapter = new $adapterClass('seoanalyzer', $ttl);
         }
-        $this->adapter = new $adapterClass('seoanalyzer', $ttl);
     }
 
     /**
