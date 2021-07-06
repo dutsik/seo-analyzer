@@ -13,7 +13,7 @@ abstract class AbstractKeywordDensityMetric extends AbstractMetric implements Ke
 
     public function __construct($inputData)
     {
-        if (empty($inputData['stop_words'])) {
+        if (empty($inputData['stop_words']) && !empty($inputData['locale'])) {
             $stopWordsFilename = dirname(__DIR__, 3) . '/locale/' . $inputData['locale'] . '_stop_words.yml';
             if (is_file($stopWordsFilename)) {
                 $inputData['stop_words'] = file($stopWordsFilename);
