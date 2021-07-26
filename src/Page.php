@@ -51,6 +51,11 @@ class Page
     public $content;
 
     /**
+     * @var array Web page content-type (html)
+     */
+    public $contentType;
+
+    /**
      * @var array Web page factors values
      */
     public $factors = [];
@@ -143,6 +148,7 @@ class Page
         $pageLoadFactors = $this->getPageLoadFactors();
         $this->setFactor(Factor::LOAD_TIME, $pageLoadFactors['time']);
         $this->content = $pageLoadFactors['content'];
+        $this->contentType = $pageLoadFactors['content-type'];
         $this->setFactor(Factor::REDIRECT, $pageLoadFactors['redirect']);
         if (empty($this->getFactor(Factor::SSL)) && $this->getSSLResponseCode() == 200) {
             $this->setFactor(Factor::SSL, true);
@@ -167,6 +173,7 @@ class Page
                 $redirect = end($redirects);
             }
             return [
+                'content-type' => $response->getHeader('Content-Type'),
                 'content' => $response->getBody()->getContents(),
                 'time' => $loadTime,
                 'redirect' => $redirect
