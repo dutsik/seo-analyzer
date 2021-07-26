@@ -36,5 +36,10 @@
   "scripts": {
     "test": "phpunit",
     "coverage": "phpunit --coverage-html ./coverage"
-  }
+  },
+   "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
